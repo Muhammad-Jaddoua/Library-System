@@ -1,0 +1,15 @@
+package com.library.library_system.model;
+
+public class WrittenBook extends Book{
+    private final int numOfPages;
+    
+    public WrittenBook(int ISBN, String author, String title, String genre, int numOfPages){
+        super(ISBN, author, title, genre);
+        this.numOfPages = numOfPages;
+    }
+
+    public int getNumOfPages(){
+        return this.numOfPages;
+    }
+    
+}
