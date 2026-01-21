@@ -1,5 +1,7 @@
 package com.library.library_system.service;
 
+import com.library.library_system.exception.BookNotFoundException;
+import com.library.library_system.exception.InvalidBook;
 import com.library.library_system.model.Book;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class LibraryService {
     public boolean addBook(Book newBook){
         // Check if ISBN is invalid OR book already exists
         if(!newBook.verifyISBN(newBook.getISBN()) || findBook(newBook) >= 0){
-            return false;
+            throw new InvalidBook(newBook.getISBN());
         }
 
         // Find first available slot
@@ -55,7 +57,7 @@ public class LibraryService {
         int deleteTargetIdx = this.findBook(ISBN);
         if(deleteTargetIdx<0){
             //book doesnt exist
-            return false;
+            throw new BookNotFoundException(ISBN);
         }
         this.libraryBooks[deleteTargetIdx] = null;
         //book deleted
@@ -81,7 +83,7 @@ public class LibraryService {
     public Book getBook(int ISBN){
         int idx = findBook(ISBN);
         if (idx < 0){
-            return null;
+            throw new BookNotFoundException(ISBN);
         }
         return libraryBooks[findBook(ISBN)];
     }
