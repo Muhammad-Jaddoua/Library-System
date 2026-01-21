@@ -23,7 +23,7 @@ public class LibraryService {
     }
 
     public boolean autoAddBooks(){
-        addBook(0200, "ali", "Java", "Programming");
+        addBook(200, "Ali", "Java", "Programming");
         addBook(1010, "Borat", "USA", "Documentary");
         addBook(1112, "Hitler", "Jewnation", "Cooking");
         addBook(2100, "ramsey", "donuts", "slavery");
