@@ -68,7 +68,7 @@ public class Book{
         int digit3 = (ISBN / 10) % 10;
         int digit2 = (ISBN / 100) % 10;
         int digit1 = (ISBN / 1000) % 10;
-        return ((digit1*3 + digit2*2 + digit3*1)%4 == digit4);
+        return ((digit1*3 + digit2*2 + digit3)%4 == digit4);
 
     }
 
