@@ -3,7 +3,6 @@ import com.library.library_system.model.Book;
 import com.library.library_system.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,8 +10,11 @@ import java.util.ArrayList;
 @RestController
 public class Controller {
 
-    @Autowired
-    private LibraryService libraryService;
+    private final LibraryService libraryService;
+
+    public Controller(LibraryService libraryService) {
+        this.libraryService = libraryService;
+    }
 
     @GetMapping("/books/isbn/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
