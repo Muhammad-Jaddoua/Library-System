@@ -2,7 +2,6 @@ package com.library.library_system.service;
 
 import com.library.library_system.model.Book;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service
@@ -15,9 +14,21 @@ public class LibraryService {
         this.libraryBooks = new Book[MAX_SIZE];
         this.numOfBooks = 0;
     }
+
+
     public void printBookByIndex(int index){
         this.libraryBooks[index].printBookInfo();
     }
+
+    public boolean autoAddBooks(){
+        addBook(0200, "ali", "Java", "Programming");
+        addBook(1010, "Borat", "USA", "Documentary");
+        addBook(1112, "Hitler", "Jewnation", "Cooking");
+        addBook(2100, "ramsey", "donuts", "slavery");
+
+        return true;
+    }
+
 
     public boolean addBook(int ISBN, String author, String title, String genre) {
         Book newBook = new Book(ISBN, author, title, genre);
