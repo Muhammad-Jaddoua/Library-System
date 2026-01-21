@@ -48,7 +48,7 @@ public class Controller {
 
     @PostMapping("/library/books")
     @ResponseStatus(HttpStatus.CREATED)
-    public boolean addBook(@RequestBody int ISBN, String author, String title, String genre){
+    public boolean addBook(@RequestParam int ISBN,@RequestParam String author,@RequestParam String title,@RequestParam String genre){
         return libraryService.addBook(ISBN, author, title, genre);
     }
     @PostMapping("/library/auto")
