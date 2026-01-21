@@ -78,6 +78,13 @@ public class LibraryService {
         }
         return -1;
     }
+    public Book getBook(int ISBN){
+        int idx = findBook(ISBN);
+        if (idx < 0){
+            return null;
+        }
+        return libraryBooks[findBook(ISBN)];
+    }
     public ArrayList<Book> getAllBooks(){
         ArrayList<Book> availableBookList = new ArrayList<>();
         for (Book book : this.libraryBooks) {
