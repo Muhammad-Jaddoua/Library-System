@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Controller {
@@ -17,7 +18,7 @@ public class Controller {
 
     @GetMapping("/library/books/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
-    public Book getBook(@PathVariable int ISBN){
+    public Optional<Book> getBook(@PathVariable int ISBN){
         return libraryService.getBook(ISBN);
     }
 
@@ -33,7 +34,7 @@ public class Controller {
         return libraryService.getGenre(genre);
     }
 
-    @GetMapping("/library/books/filter-author/{author}")
+    @GetMapping("/library/books/count-author/{author}")
     @ResponseStatus(HttpStatus.OK)
     public int getNumOfBooksByAuthor(@PathVariable String author){
         return libraryService.getNumOfBooksByAuthor(author);
@@ -51,7 +52,7 @@ public class Controller {
     public boolean addBook(@RequestParam int ISBN,@RequestParam String author,@RequestParam String title,@RequestParam String genre){
         return libraryService.addBook(ISBN, author, title, genre);
     }
-    @PostMapping("/library/auto")
+    @PostMapping("/library/books/auto")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean autoAddBooks(){
         return libraryService.autoAddBooks();
