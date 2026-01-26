@@ -17,7 +17,6 @@ public class LibraryService {
         this.numOfBooks = 0;
     }
 
-
     public void printBookByIndex(int index){
         this.libraryBooks[index].printBookInfo();
     }
