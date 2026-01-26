@@ -15,31 +15,31 @@ public class Controller {
         this.libraryService = libraryService;
     }
 
-    @GetMapping("/books/isbn/{ISBN}")
+    @GetMapping("/library/books/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
     public Book getBook(@PathVariable int ISBN){
         return libraryService.getBook(ISBN);
     }
 
-    @GetMapping("/books")
+    @GetMapping("/library/books")
     @ResponseStatus(HttpStatus.OK)
     public ArrayList<Book> getAllBooks(){
         return libraryService.getAllBooks();
     }
 
-    @GetMapping("/books/genre/{genre}")
+    @GetMapping("/library/books/filter-genre/{genre}")
     @ResponseStatus(HttpStatus.OK)
     public ArrayList<Book> getGenre(@PathVariable String genre){
         return libraryService.getGenre(genre);
     }
 
-    @GetMapping("/books/author/{author}")
+    @GetMapping("/library/books/filter-author/{author}")
     @ResponseStatus(HttpStatus.OK)
     public int getNumOfBooksByAuthor(@PathVariable String author){
         return libraryService.getNumOfBooksByAuthor(author);
     }
 
-    @GetMapping("/books/count")
+    @GetMapping("/library/books/count")
     @ResponseStatus(HttpStatus.OK)
     public int getNumOfBooks(){
         return libraryService.getNumOfBooks();
@@ -56,13 +56,15 @@ public class Controller {
     public boolean autoAddBooks(){
         return libraryService.autoAddBooks();
     }
-    @PostMapping("/library")
+
+    @PostMapping("/library/exit")
     @ResponseStatus(HttpStatus.OK)
     public String exitLibrary(){
         return libraryService.exitLibrary();
     }
 
-    @DeleteMapping("/books/isbn/{ISBN}")
+
+    @DeleteMapping("/library/books/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteBook(@PathVariable int ISBN){
         return libraryService.deleteBook(ISBN);
