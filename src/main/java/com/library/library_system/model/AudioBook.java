@@ -1,5 +1,8 @@
 package com.library.library_system.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class AudioBook extends Book{
     final private int duration;
     final private String narrator;

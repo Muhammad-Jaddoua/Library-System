@@ -1,19 +1,22 @@
 package com.library.library_system.model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "books")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Book{
+    @Id
     private int ISBN;
     private String author;
     private String title;
     private String genre;
-    private final String refCode;
 
     //Default Constructor
     public Book(){
-        this.ISBN = 0000;
+        this.ISBN = 0;
         this.author = "noAuthor";
         this.title = "noTitle";
         this.genre = "noGenre";
-        this.refCode = generateReference();
     }
     //Initial values constructor
     public Book(int ISBN, String author, String title, String genre){
@@ -21,7 +24,6 @@ public class Book{
         this.author = author;
         this.title = title;
         this.genre = genre;
-        this.refCode = generateReference();
     }
 
 
@@ -53,7 +55,7 @@ public class Book{
         return this.genre;
     }
     public String getRefCode(){
-        return this.refCode;
+        return this.generateReference();
     }
 
     //RefCode generator
@@ -75,7 +77,7 @@ public class Book{
     public void printBookInfo(){
         System.out.println("Title: " + this.title);
         System.out.println("Author: " + this.author);
-        System.out.println("ISBN: " + String.format("%0"+4+"d", this.ISBN) +" - "+ "Reference Code: " + this.refCode);
+        System.out.println("ISBN: " + String.format("%0"+4+"d", this.ISBN) +" - "+ "Reference Code: " + this.generateReference());
         System.out.println("Genre: " + this.genre);
     }
 

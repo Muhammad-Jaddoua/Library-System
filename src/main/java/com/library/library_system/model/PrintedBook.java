@@ -1,5 +1,8 @@
 package com.library.library_system.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class PrintedBook extends WrittenBook{
     private final boolean hardcover;
 

@@ -1,5 +1,8 @@
 package com.library.library_system.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class EBook extends WrittenBook{
     final int size;
 

@@ -1,5 +1,8 @@
 package com.library.library_system.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class WrittenBook extends Book{
     private final int numOfPages;
     
