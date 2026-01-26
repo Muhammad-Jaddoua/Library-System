@@ -4,7 +4,7 @@ import com.library.library_system.service.LibraryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -23,13 +23,13 @@ public class Controller {
 
     @GetMapping("/library/books")
     @ResponseStatus(HttpStatus.OK)
-    public ArrayList<Book> getAllBooks(){
+    public List<Book> getAllBooks(){
         return libraryService.getAllBooks();
     }
 
     @GetMapping("/library/books/filter-genre/{genre}")
     @ResponseStatus(HttpStatus.OK)
-    public ArrayList<Book> getGenre(@PathVariable String genre){
+    public List<Book> getGenre(@PathVariable String genre){
         return libraryService.getGenre(genre);
     }
 
@@ -41,7 +41,7 @@ public class Controller {
 
     @GetMapping("/library/books/count")
     @ResponseStatus(HttpStatus.OK)
-    public int getNumOfBooks(){
+    public Long getNumOfBooks(){
         return libraryService.getNumOfBooks();
     }
 
