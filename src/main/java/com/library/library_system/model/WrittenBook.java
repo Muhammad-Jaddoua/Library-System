@@ -10,6 +10,10 @@ public class WrittenBook extends Book{
         super(ISBN, author, title, genre);
         this.numOfPages = numOfPages;
     }
+    public WrittenBook(){
+        super();
+        this.numOfPages = 0;
+    }
 
     public int getNumOfPages(){
         return this.numOfPages;

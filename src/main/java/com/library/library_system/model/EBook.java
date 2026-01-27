@@ -10,6 +10,10 @@ public class EBook extends WrittenBook{
         super(ISBN, author, title, genre, numOfPages);
         this.size = size;
     }
+    public EBook(){
+        super();
+        this.size = 0;
+    }
 
     public int getSize(){
         return this.size;

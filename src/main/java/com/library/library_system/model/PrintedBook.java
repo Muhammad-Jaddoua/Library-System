@@ -14,7 +14,11 @@ public class PrintedBook extends WrittenBook{
     public PrintedBook(int ISBN, String author, String title, String genre, int numOfPages){
         super(ISBN, author, title, genre, numOfPages);
         this.hardcover = false;
-    }   
+    }
+    public PrintedBook(){
+        super();
+        this.hardcover = false;
+    }
 
     public String getCoverType(){
         return (this.hardcover)? "Hardcover": "Paperback";
