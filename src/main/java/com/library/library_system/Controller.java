@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/library")
 public class Controller {
 
     private final LibraryService libraryService;
@@ -16,56 +17,56 @@ public class Controller {
         this.libraryService = libraryService;
     }
 
-    @GetMapping("/library/books/{ISBN}")
+    @GetMapping("/books/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Book> getBook(@PathVariable int ISBN){
         return libraryService.getBook(ISBN);
     }
 
-    @GetMapping("/library/books")
+    @GetMapping("/books")
     @ResponseStatus(HttpStatus.OK)
     public List<Book> getAllBooks(){
         return libraryService.getAllBooks();
     }
 
-    @GetMapping("/library/books/filter-genre/{genre}")
+    @GetMapping("/books/filter-genre/{genre}")
     @ResponseStatus(HttpStatus.OK)
     public List<Book> getGenre(@PathVariable String genre){
         return libraryService.getGenre(genre);
     }
 
-    @GetMapping("/library/books/count-author/{author}")
+    @GetMapping("/books/count-author/{author}")
     @ResponseStatus(HttpStatus.OK)
     public int getNumOfBooksByAuthor(@PathVariable String author){
         return libraryService.getNumOfBooksByAuthor(author);
     }
 
-    @GetMapping("/library/books/count")
+    @GetMapping("/books/count")
     @ResponseStatus(HttpStatus.OK)
     public Long getNumOfBooks(){
         return libraryService.getNumOfBooks();
     }
 
 
-    @PostMapping("/library/books")
+    @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean addBook(@RequestParam int ISBN,@RequestParam String author,@RequestParam String title,@RequestParam String genre){
         return libraryService.addBook(ISBN, author, title, genre);
     }
-    @PostMapping("/library/books/auto")
+    @PostMapping("/books/auto")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean autoAddBooks(){
         return libraryService.autoAddBooks();
     }
 
-    @PostMapping("/library/exit")
+    @PostMapping("/exit")
     @ResponseStatus(HttpStatus.OK)
     public String exitLibrary(){
         return libraryService.exitLibrary();
     }
 
 
-    @DeleteMapping("/library/books/{ISBN}")
+    @DeleteMapping("/books/{ISBN}")
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteBook(@PathVariable int ISBN){
         return libraryService.deleteBook(ISBN);
