@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Book{
     @Id
-    private int ISBN;
+    private Integer ISBN;
     private String author;
     private String title;
     private String genre;
@@ -42,7 +42,7 @@ public class Book{
     }
 
     //Getters
-    public int getISBN(){
+    public Integer getISBN(){
         return this.ISBN;
     }
     public String getAuthor(){
