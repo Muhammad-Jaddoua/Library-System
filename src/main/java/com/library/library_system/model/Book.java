@@ -8,8 +8,6 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Book{
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
     private Integer ISBN;
     private String author;
     private String title;
