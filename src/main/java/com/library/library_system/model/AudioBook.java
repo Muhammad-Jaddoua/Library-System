@@ -4,8 +4,8 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class AudioBook extends Book{
-    final private int duration;
-    final private String narrator;
+    private int duration;
+    private String narrator;
 
     public AudioBook(int ISBN, String author, String title, String genre, int duration, String narrator){
         super(ISBN, author, title, genre);
