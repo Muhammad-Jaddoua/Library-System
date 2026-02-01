@@ -34,10 +34,3 @@ public class AudioBook extends Book{
     }
 
 }
-// *****AudioBook*****
-// •Title: title
-// Author: author
-// ISBN: ISBN - Reference Code : refCode
-// Genre: genre
-// Duration: duration
-// Narrator: narrator
