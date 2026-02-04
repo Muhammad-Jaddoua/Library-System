@@ -1,9 +1,12 @@
-package com.library.library_system;
+package com.library.library_system.controller;
 import com.library.library_system.model.Book;
 import com.library.library_system.service.LibraryService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,13 @@ public class Controller {
 
     public Controller(LibraryService libraryService) {
         this.libraryService = libraryService;
+    }
+
+    @GetMapping("/Admin-control-panel")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> getAdminControlPanel(){
+        String html = "<html><body><h1>Admin Control Panel</h1><p>yo this is the control panel</p></body></html>";
+        return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(html);
     }
 
     @GetMapping("/books/{ISBN}")
