@@ -1,0 +1,181 @@
+databaseChangeLog:
+- changeSet:
+    id: 1770290105958-1
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: duration
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: audio_book_pkey
+            name: isbn
+            type: INTEGER
+        - column:
+            name: narrator
+            type: VARCHAR(255)
+        tableName: audio_book
+- changeSet:
+    id: 1770290105958-2
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: books_pkey
+            name: isbn
+            type: INTEGER
+        - column:
+            name: author
+            type: VARCHAR(255)
+        - column:
+            name: genre
+            type: VARCHAR(255)
+        - column:
+            name: title
+            type: VARCHAR(255)
+        tableName: books
+- changeSet:
+    id: 1770290105958-3
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: ebook_pkey
+            name: isbn
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: size
+            type: INTEGER
+        tableName: ebook
+- changeSet:
+    id: 1770290105958-4
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: hardcover
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: printed_book_pkey
+            name: isbn
+            type: INTEGER
+        tableName: printed_book
+- changeSet:
+    id: 1770290105958-5
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: test_table_pkey
+            name: test_id
+            type: INTEGER
+        - column:
+            name: test_column
+            type: INTEGER
+        tableName: test_table
+- changeSet:
+    id: 1770290105958-6
+    author: srlemon (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: written_book_pkey
+            name: isbn
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            name: num_of_pages
+            type: INTEGER
+        tableName: written_book
+- changeSet:
+    id: 1770290105958-7
+    author: srlemon (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: isbn
+        baseTableName: written_book
+        constraintName: fk9tfc1q6n3elocgytin8w27mgw
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: isbn
+        referencedTableName: books
+        validate: true
+- changeSet:
+    id: 1770290105958-8
+    author: srlemon (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: isbn
+        baseTableName: audio_book
+        constraintName: fkg6hokio91oxsmbiv8ckrsh082
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: isbn
+        referencedTableName: books
+        validate: true
+- changeSet:
+    id: 1770290105958-9
+    author: srlemon (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: isbn
+        baseTableName: ebook
+        constraintName: fkmmra4wdvnl2sh0ghrm7s6t9uv
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: isbn
+        referencedTableName: written_book
+        validate: true
+- changeSet:
+    id: 1770290105958-10
+    author: srlemon (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: isbn
+        baseTableName: printed_book
+        constraintName: fknju5o1wwivi9r7gkbwi0hw1w0
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: isbn
+        referencedTableName: written_book
+        validate: true
+
