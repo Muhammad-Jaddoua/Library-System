@@ -1,4 +1,4 @@
-package com.library.library_system.security.jwt;
+package com.library.auth.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
