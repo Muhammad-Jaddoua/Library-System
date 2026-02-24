@@ -1,4 +1,4 @@
-package com.library.library_system.model;
+package com.library.auth.entity;
 
 public enum Role {
     ROLE_USER,
