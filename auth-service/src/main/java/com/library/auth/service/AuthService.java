@@ -1,12 +1,14 @@
-package com.library.library_system.service;
+package com.library.auth.service;
 
-import com.library.library_system.dto.AuthResponse;
-import com.library.library_system.dto.LoginRequest;
-import com.library.library_system.dto.RegisterRequest;
-import com.library.library_system.model.Role;
-import com.library.library_system.model.User;
-import com.library.library_system.repository.UserRepository;
-import com.library.library_system.security.jwt.JwtUtil;
+import com.library.auth.dto.AuthResponse;
+import com.library.auth.dto.LoginRequest;
+import com.library.auth.dto.RegisterRequest;
+import com.library.auth.entity.Role;
+import com.library.auth.entity.User;
+import com.library.auth.event.UserRegisteredEvent;
+import com.library.auth.kafka.AuthEventProducer;
+import com.library.auth.repository.UserRepository;
+import com.library.auth.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,12 +21,14 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final AuthEventProducer authEventProducer;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtil jwtUtil){
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtil jwtUtil, AuthEventProducer authEventProducer){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.authEventProducer = authEventProducer;
     }
 
     public AuthResponse register(RegisterRequest registerRequest){
@@ -38,6 +42,11 @@ public class AuthService {
         newUser.setRole(Role.ROLE_USER);
 
         userRepository.save(newUser);
+        authEventProducer.publishUserRegistered(new UserRegisteredEvent(
+                                                                        newUser.getId(),
+                                                                        newUser.getUsername(),
+                                                                        newUser.getRole().name())
+                                                                        );
 
         //start a new jwt authentication token
         String token = jwtUtil.generateToken(newUser.getUsername());

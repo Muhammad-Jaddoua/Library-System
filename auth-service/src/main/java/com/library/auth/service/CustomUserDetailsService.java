@@ -1,21 +1,18 @@
-package com.library.library_system.security;
+package com.library.auth.service;
 
-import com.library.library_system.model.User;
-import com.library.library_system.repository.UserRepository;
+import com.library.auth.entity.User;
+import com.library.auth.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
-@Service  // ← Makes it a Spring-managed bean
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserRepository userRepository;
 
     public CustomUserDetailsService(UserRepository userRepository) {
