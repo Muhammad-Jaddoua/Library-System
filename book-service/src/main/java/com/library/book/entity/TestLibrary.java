@@ -1,4 +1,4 @@
-package com.library.library_system.model;
+package com.library.book.entity;
 
 import java.util.Scanner;
 public class TestLibrary{

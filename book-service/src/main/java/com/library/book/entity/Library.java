@@ -1,4 +1,4 @@
-package com.library.library_system.model;
+package com.library.book.entity;
 
 public class Library{
     private final Book[] libraryBooks;

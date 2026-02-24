@@ -1,4 +1,4 @@
-package com.library.library_system.exception;
+package com.library.book.exception;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,13 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidBook.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public Map<String, String> handleInvalidISBN(InvalidBook ex){
-        return Map.of("error", ex.getMessage());
-    }
-    @ExceptionHandler(LibraryFullException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ResponseBody
-    public Map<String, String> handleLibraryFull(LibraryFullException ex) {
+    public Map<String, String> handleInvalidBook(InvalidBook ex){
         return Map.of("error", ex.getMessage());
     }
     @ExceptionHandler(BookNotFoundException.class)

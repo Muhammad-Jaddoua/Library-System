@@ -1,4 +1,4 @@
-package com.library.library_system.exception;
+package com.library.book.exception;
 
 public class InvalidBook extends RuntimeException {
 

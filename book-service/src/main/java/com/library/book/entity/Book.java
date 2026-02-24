@@ -1,8 +1,10 @@
-package com.library.library_system.model;
+package com.library.book.entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.UUID;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "books")
 @Inheritance(strategy = InheritanceType.JOINED)

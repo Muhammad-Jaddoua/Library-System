@@ -1,19 +1,19 @@
-package com.library.library_system.service;
+package com.library.book.service;
 
-import com.library.library_system.exception.BookNotFoundException;
-import com.library.library_system.exception.InvalidBook;
-import com.library.library_system.model.Book;
-import com.library.library_system.repository.BookRepository;
+import com.library.book.exception.BookNotFoundException;
+import com.library.book.exception.InvalidBook;
+import com.library.book.entity.Book;
+import com.library.book.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LibraryService {
+public class BookService {
     private final BookRepository bookRepository;
 
-    public LibraryService(BookRepository bookRepository){
+    public BookService(BookRepository bookRepository){
         this.bookRepository = bookRepository;
     }
 
