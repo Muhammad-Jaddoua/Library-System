@@ -1,8 +1,10 @@
-package com.library.library_system.dto;
+package com.library.auth.dto;
+
 import lombok.Data;
 
 @Data
-public class LoginRequest {
+public class AuthRequest {
     private String username;
     private String password;
+
 }

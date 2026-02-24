@@ -1,5 +1,5 @@
-package com.library.library_system.dto;
-import com.library.library_system.model.Role;
+package com.library.auth.dto;
+import com.library.auth.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,10 +14,4 @@ public class AuthResponse {
         this.token = token;
     }
 
-    // Getter
-    public String getToken() {
-        return token;
-    }
-    public String getUsername(){return username;}
-    public Role getRole(){return role;}
 }
