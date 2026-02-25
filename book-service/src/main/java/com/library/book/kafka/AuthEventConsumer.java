@@ -16,7 +16,7 @@ public class AuthEventConsumer {
 
     private final UserRecordRepository userRecordRepository;
 
-    @KafkaListener(topics = "user-registered", groupId = "book-service-group")
+    @KafkaListener(topics = "auth-topic", groupId = "book-service-group")
     public void handleUserRegistered(UserRegisteredEvent event) {
         log.info("New user registered: {}, syncing to book-service DB", event.userId());
         if (!userRecordRepository.existsByUserId(event.userId())) {

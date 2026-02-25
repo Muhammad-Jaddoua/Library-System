@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AuthEventProducer {
 
     private final KafkaTemplate<String, UserRegisteredEvent> kafkaTemplate;
-    private static final String TOPIC = "user-registered";
+    private static final String TOPIC = "auth-topic";
 
     public void publishUserRegistered(UserRegisteredEvent event) {
         kafkaTemplate.send(TOPIC, event);
