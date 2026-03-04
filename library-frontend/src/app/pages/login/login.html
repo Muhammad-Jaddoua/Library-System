@@ -1,0 +1,15 @@
+<header>Welcome to the library</header>
+<h2>Please enter your credentials</h2>
+<form [formGroup]="loginForm" (ngSubmit)="loginRequest()">
+  <label>
+    Username:
+    <input type="text" formControlName="username">
+  </label>
+  <label>
+    Password:
+    <input type="password" formControlName="password">
+  </label>
+  <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+
+</form>
+<p>login works!</p>
