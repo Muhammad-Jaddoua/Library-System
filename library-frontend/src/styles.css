@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary:    #0f1117;
+  --bg-secondary:  #1a1d27;
+  --bg-card:       #20243a;
+  --bg-hover:      #2a2f47;
+  --accent:        #c9a84c;
+  --accent-light:  #e0c06a;
+  --accent-dim:    rgba(201,168,76,0.15);
+  --text-primary:  #f0f0f0;
+  --text-secondary:#a0a8c0;
+  --text-muted:    #5a6282;
+  --border:        #2e3354;
+  --danger:        #e05c5c;
+  --danger-dim:    rgba(224,92,92,0.15);
+  --success:       #4caf7d;
+  --radius-sm:     6px;
+  --radius-md:     12px;
+  --radius-lg:     20px;
+  --shadow:        0 4px 24px rgba(0,0,0,0.4);
+  --shadow-sm:     0 2px 8px rgba(0,0,0,0.3);
+  --transition:    all 0.2s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, select, button, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: var(--transition);
+}
+a:hover { color: var(--accent-light); }

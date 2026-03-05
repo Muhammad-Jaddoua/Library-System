@@ -1,16 +1,21 @@
-<header>Welcome to the library</header>
-<h2>Please enter your credentials</h2>
-<form [formGroup]="registerForm" (ngSubmit)="registerRequest()">
-  <label>
-    Username:
-    <input type="text" formControlName="username">
-  </label>
-  <label>
-    Password:
-    <input type="password" formControlName="password">
-  </label>
-  <button type="submit" [disabled]="!registerForm.valid" >Submit</button>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">📖</div>
+    <h1 class="auth-title">Create Account</h1>
+    <p class="auth-subtitle">Join the library system today</p>
 
-</form>
-  <button type="button" (click)="navigateTologin()">Already have an account? Login</button>
-<p>register works!</p>
+    <form [formGroup]="registerForm" (ngSubmit)="registerRequest()" class="auth-form">
+      <div class="field-group">
+        <label class="field-label">Username</label>
+        <input class="field-input" type="text" formControlName="username" placeholder="Choose a username" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <input class="field-input" type="password" formControlName="password" placeholder="Choose a password" />
+      </div>
+      <button class="btn-primary" type="submit" [disabled]="!registerForm.valid">Create Account</button>
+    </form>
+
+    <p class="auth-footer">Already have an account? <a (click)="navigateTologin()" style="cursor:pointer">Sign In</a></p>
+  </div>
+</div>
