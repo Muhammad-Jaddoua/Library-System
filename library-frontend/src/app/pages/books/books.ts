@@ -16,55 +16,52 @@ export class Books implements OnInit{
   totalBooks = 0;
   displayedBooks: Book[] = [];
 
-  filterType     = '';
-  filterValue    = '';
-  searched = false;
+  filterType   = '';
+  filterValue  = '';
+  searched     = false;
+  isShowingAll = false;
   showEditMenu = false;
   activeForm: 'add' | 'delete' | null = null;
   newBook = { isbn: 0, author: '', title: '', genre: '' };
   deleteIsbn = 0;
 
+  showAllBooks() {
+    this.filterType  = '';
+    this.filterValue = '';
+    this.bookService.getAllBooks().subscribe({
+      next: (returnedBooks) => {
+        this.displayedBooks = returnedBooks;
+        this.searched       = true;
+        this.isShowingAll   = true;
+      },
+      error: () => { alert('Something went wrong in retrieving the library.'); }
+    });
+  }
 
-  //All books functionalities
- toggleAllBooks(){
-   if(this.displayedBooks.length > 0){
-     this.displayedBooks = [];
-     this.searched = false;
-   } else {
-     this.bookService.getAllBooks().subscribe({
-       next:(returnedBooks) => {
-         this.displayedBooks = returnedBooks;
-         this.searched = true;
-       },
-       error: () => {alert('Something went wrong in retrieving the library.')}
-     });
-   }
+  applyFilter() {
+    if (!this.filterType || !this.filterValue.trim()) return;
+    this.isShowingAll = false;
 
- }
- applyFilter(){
-   if (this.filterType.toLowerCase() === "author"){
-     this.searched = true;
-      this.bookService.getAllAuthor(this.filterValue).subscribe(
-        (books) =>{
-          this.displayedBooks = books;
-        });
+    if (this.filterType.toLowerCase() === 'author') {
+      this.searched = true;
+      this.bookService.getAllAuthor(this.filterValue).subscribe(books => {
+        this.displayedBooks = books;
+      });
+    } else if (this.filterType.toLowerCase() === 'genre') {
+      this.searched = true;
+      this.bookService.getAllGenre(this.filterValue).subscribe(books => {
+        this.displayedBooks = books;
+      });
+    }
+  }
 
-   } else if (this.filterType.toLowerCase() === "genre"){
-     this.searched = true;
-     this.bookService.getAllGenre(this.filterValue).subscribe(
-       (books) => {
-       this.displayedBooks = books;
-       });
-
-   } else {return;}
-
- }
- clearFilter(){
-   this.filterType    = '';
-   this.filterValue   = '';
-   this.displayedBooks = [];
-   this.searched      = false;
- }
+  clearFilter() {
+    this.filterType     = '';
+    this.filterValue    = '';
+    this.displayedBooks = [];
+    this.searched       = false;
+    this.isShowingAll   = false;
+  }
 
  toggleEditMenu(){
    this.showEditMenu = !this.showEditMenu;
@@ -96,5 +93,13 @@ export class Books implements OnInit{
    this.activeForm = null;
    this.newBook    = { isbn: 0, author: '', title: '', genre: '' };
    this.deleteIsbn = 0;
+ }
+
+ generateIsbn() {
+   const n1 = Math.floor(Math.random() * 9) + 1; // 1–9, avoid leading zero
+   const n2 = Math.floor(Math.random() * 10);
+   const n3 = Math.floor(Math.random() * 10);
+   const n4 = (n1 * 3 + n2 * 2 + n3 * 1) % 4;
+   this.newBook.isbn = parseInt(`${n1}${n2}${n3}${n4}`, 10);
  }
 }

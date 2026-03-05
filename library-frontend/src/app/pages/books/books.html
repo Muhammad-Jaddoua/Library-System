@@ -1,111 +1,175 @@
-<!-- book.component.html -->
-<div class="book-page">
+<div class="books-page">
 
-  <!-- Status Bar -->
-  <div class="status-bar">
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-icon">📖</span>
+      <span class="navbar-title">Library System</span>
+    </div>
+    <div class="navbar-right">
+      <div class="status-chip" [class.glow]="isShowingAll" (click)="showAllBooks()">
+        <span class="status-dot"></span>
+        <span>{{ totalBooks }} Books</span>
+      </div>
+    </div>
+  </header>
 
-    <!-- Total Books Button -->
-    <button class="total-books-btn" (click)="toggleAllBooks()">
-      📚 Total Books: {{ totalBooks }}
-    </button>
+  <!-- Toolbar -->
+  <div class="toolbar">
 
     <!-- Filter Section -->
-    <div class="filter-section">
-      <select [(ngModel)]="filterType" class="filter-select">
-        <option value="">-- Filter By --</option>
+    <div class="filter-group">
+      <select [(ngModel)]="filterType" class="toolbar-select">
+        <option value="">Filter by…</option>
         <option value="author">Author</option>
         <option value="genre">Genre</option>
       </select>
 
-      <input
-        type="text"
-        [(ngModel)]="filterValue"
-        placeholder="Enter {{ filterType || 'filter' }} ..."
-        class="filter-input"
-        (keyup.enter)="applyFilter()"
-      />
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          [(ngModel)]="filterValue"
+          [placeholder]="filterType ? 'Search by ' + filterType + '…' : 'Select a filter first'"
+          class="toolbar-input"
+          (keyup.enter)="applyFilter()"
+        />
+        @if (filterValue) {
+          <button class="clear-x" (click)="clearFilter()">✕</button>
+        }
+      </div>
 
-      <button class="filter-btn" (click)="applyFilter()">Search</button>
-      <button class="clear-btn" (click)="clearFilter()">✕</button>
+      <button class="btn-search" (click)="applyFilter()">Search</button>
     </div>
 
-    <!-- Edit Button -->
-    <div class="edit-section">
-      <button class="edit-btn" (click)="toggleEditMenu(); closeForm()">✏️ Edit</button>
-
-      <!-- Dropdown Menu -->
-      @if (showEditMenu) {
-        <div class="edit-dropdown" >
-          <button (click)="showForm('add')">➕ Add Book</button>
-          <button (click)="showForm('delete')">🗑️ Delete Book</button>
-        </div>
-      }
+    <!-- Edit Section -->
+    <div class="edit-group">
+      <div class="edit-wrap">
+        <button class="btn-edit" (click)="toggleEditMenu(); closeForm()">
+          <span>✏️</span> Manage
+          <span class="chevron" [class.open]="showEditMenu">▾</span>
+        </button>
+        @if (showEditMenu) {
+          <div class="dropdown">
+            <button class="dropdown-item" (click)="showForm('add')">
+              <span>➕</span> Add Book
+            </button>
+            <button class="dropdown-item danger" (click)="showForm('delete')">
+              <span>🗑️</span> Delete Book
+            </button>
+          </div>
+        }
+      </div>
     </div>
 
   </div>
 
-  <!-- Add Book Form -->
-  @if(activeForm === 'add'){
-    <div class="form-overlay" >
-      <div class="form-card">
-        <h3>Add New Book</h3>
-        <input type="number" [(ngModel)]="newBook.isbn"   placeholder="ISBN"   />
-        <input type="text"   [(ngModel)]="newBook.author" placeholder="Author" />
-        <input type="text"   [(ngModel)]="newBook.title"  placeholder="Title"  />
-        <input type="text"   [(ngModel)]="newBook.genre"  placeholder="Genre"  />
-        <div class="form-actions">
-          <button class="submit-btn" (click)="submitAdd()">Add</button>
-          <button class="cancel-btn" (click)="closeForm()">Cancel</button>
+  <!-- Add Book Modal -->
+  @if (activeForm === 'add') {
+    <div class="modal-backdrop" (click)="closeForm()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Add New Book</h3>
+          <button class="modal-close" (click)="closeForm()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="field-group">
+            <label class="field-label">ISBN</label>
+            <div class="isbn-wrap">
+              <input class="field-input isbn-input" type="text" [(ngModel)]="newBook.isbn" placeholder="e.g. 1234" />
+              <button type="button" class="btn-generate" (click)="generateIsbn()">Generate</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Title</label>
+            <input class="field-input" type="text" [(ngModel)]="newBook.title" placeholder="Book title" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Author</label>
+            <input class="field-input" type="text" [(ngModel)]="newBook.author" placeholder="Author name" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Genre</label>
+            <input class="field-input" type="text" [(ngModel)]="newBook.genre" placeholder="e.g. Fiction" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeForm()">Cancel</button>
+          <button class="btn-confirm" (click)="submitAdd()">Add Book</button>
         </div>
       </div>
     </div>
   }
 
-  <!-- Delete Book Form -->
-  @if (activeForm === 'delete'){
-    <div class="form-overlay" >
-      <div class="form-card">
-        <h3>Delete Book</h3>
-        <input type="number" [(ngModel)]="deleteIsbn" placeholder="Enter ISBN" />
-        <div class="form-actions">
-          <button class="submit-btn danger" (click)="submitDelete()">Delete</button>
-          <button class="cancel-btn"        (click)="closeForm()">Cancel</button>
+  <!-- Delete Book Modal -->
+  @if (activeForm === 'delete') {
+    <div class="modal-backdrop" (click)="closeForm()">
+      <div class="modal modal-sm" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Delete Book</h3>
+          <button class="modal-close" (click)="closeForm()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="field-group">
+            <label class="field-label">ISBN</label>
+            <input class="field-input" type="number" [(ngModel)]="deleteIsbn" placeholder="Enter book ISBN" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeForm()">Cancel</button>
+          <button class="btn-danger" (click)="submitDelete()">Delete</button>
         </div>
       </div>
     </div>
   }
 
-  <!-- Display Panel -->
-  @if (displayedBooks.length > 0){
-    <div class="display-panel" >
-      <table>
-        <thead>
-        <tr>
-          <th>ISBN</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Genre</th>
-        </tr>
-        </thead>
-        <tbody>
-          @for (book of displayedBooks; track book.isbn){
-          <tr >
-            <td>{{ book.isbn }}</td>
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.genre }}</td>
-          </tr>
-           }
-        </tbody>
-      </table>
-    </div>
-  }
+  <!-- Main Content -->
+  <main class="content">
 
-  <!-- Empty State -->
-  @if(displayedBooks.length === 0 && searched){
-    <div class="empty-state">
-      <p>No books found.</p>
-    </div>
-  }
+    <!-- Book Table -->
+    @if (displayedBooks.length > 0) {
+      <div class="table-wrap">
+        <table class="book-table">
+          <thead>
+            <tr>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Genre</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (book of displayedBooks; track book.isbn) {
+              <tr>
+                <td class="isbn-cell">{{ book.isbn }}</td>
+                <td class="title-cell">{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td><span class="genre-badge">{{ book.genre }}</span></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <!-- Empty / Idle State -->
+    @if (displayedBooks.length === 0 && !searched) {
+      <div class="idle-state">
+        <div class="idle-icon">📚</div>
+        <p class="idle-title">Your Library</p>
+        <p class="idle-sub">Click <strong>{{ totalBooks }} Books</strong> in the header to browse, or use the filter to search.</p>
+      </div>
+    }
+
+    <!-- No Results -->
+    @if (displayedBooks.length === 0 && searched) {
+      <div class="idle-state">
+        <div class="idle-icon">🔎</div>
+        <p class="idle-title">No books found</p>
+        <p class="idle-sub">Try a different search term or clear the filter.</p>
+      </div>
+    }
+
+  </main>
 
 </div>
