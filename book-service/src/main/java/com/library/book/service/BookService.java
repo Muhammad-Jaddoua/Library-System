@@ -67,6 +67,9 @@ public class BookService {
     public int getNumOfBooksByAuthor(String author){
         return bookRepository.countByAuthor(author);
     }
+    public List<Book> getAuthor(String author){
+        return bookRepository.findByAuthor(author);
+    }
     public Long getNumOfBooks(){
         return bookRepository.count();
     }

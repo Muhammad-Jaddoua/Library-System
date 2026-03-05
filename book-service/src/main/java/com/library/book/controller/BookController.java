@@ -44,6 +44,12 @@ public class BookController {
         return bookService.getGenre(genre);
     }
 
+    @GetMapping("/filter-author/{author}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Book> getAuthor(@PathVariable String author){
+        return bookService.getAuthor(author);
+    }
+
     @GetMapping("/count-author/{author}")
     @ResponseStatus(HttpStatus.OK)
     public int getNumOfBooksByAuthor(@PathVariable String author){
