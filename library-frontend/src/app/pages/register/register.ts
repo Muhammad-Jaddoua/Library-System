@@ -15,6 +15,11 @@ export class Register {
 
   navigateTologin(){
     this.router.navigate(['login'])
+
+  }
+  navigateToBooks(){
+    this.router.navigate(['books'])
+
   }
   registerForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -28,7 +33,8 @@ export class Register {
     ).subscribe({
       next: (response) => {
         this.authService.setToken(response.token);
-        this.navigateTologin(); },
+        this.navigateToBooks();
+        },
 
       error: (err) => {alert("Register Failed, please check your credentials.")},
     });
