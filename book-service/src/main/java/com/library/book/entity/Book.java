@@ -64,7 +64,12 @@ public class Book{
 
     //RefCode generator
     private String generateReference(){
-        return ("" + this.author.charAt(0)+this.author.charAt(1) +"-"+ this.genre.charAt(0)+this.genre.charAt(1));
+        if (this.author == null || this.author.length() < 2 ||
+                this.genre == null  || this.genre.length()  < 2) {
+            return "N/A";
+        }
+        return ("" + this.author.charAt(0) + this.author.charAt(1)
+                + "-" + this.genre.charAt(0) + this.genre.charAt(1));
     }
 
 //(Optional)ISBN verifier
