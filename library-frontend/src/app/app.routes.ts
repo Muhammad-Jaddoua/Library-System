@@ -5,6 +5,10 @@ import {Books} from '././pages/books/books';
 import {NotFound} from './pages/not-found/not-found';
 
 export const routes: Routes = [
+  { path: '',
+    redirectTo: 'register',
+    pathMatch: 'full' },  // default redirect
+
   {path: 'login',
     title: 'login page',
     component: Login,
