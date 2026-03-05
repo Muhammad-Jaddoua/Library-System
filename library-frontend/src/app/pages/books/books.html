@@ -1,0 +1,111 @@
+<!-- book.component.html -->
+<div class="book-page">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+
+    <!-- Total Books Button -->
+    <button class="total-books-btn" (click)="toggleAllBooks()">
+      📚 Total Books: {{ totalBooks }}
+    </button>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <select [(ngModel)]="filterType" class="filter-select">
+        <option value="">-- Filter By --</option>
+        <option value="author">Author</option>
+        <option value="genre">Genre</option>
+      </select>
+
+      <input
+        type="text"
+        [(ngModel)]="filterValue"
+        placeholder="Enter {{ filterType || 'filter' }} ..."
+        class="filter-input"
+        (keyup.enter)="applyFilter()"
+      />
+
+      <button class="filter-btn" (click)="applyFilter()">Search</button>
+      <button class="clear-btn" (click)="clearFilter()">✕</button>
+    </div>
+
+    <!-- Edit Button -->
+    <div class="edit-section">
+      <button class="edit-btn" (click)="toggleEditMenu(); closeForm()">✏️ Edit</button>
+
+      <!-- Dropdown Menu -->
+      @if (showEditMenu) {
+        <div class="edit-dropdown" >
+          <button (click)="showForm('add')">➕ Add Book</button>
+          <button (click)="showForm('delete')">🗑️ Delete Book</button>
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- Add Book Form -->
+  @if(activeForm === 'add'){
+    <div class="form-overlay" >
+      <div class="form-card">
+        <h3>Add New Book</h3>
+        <input type="number" [(ngModel)]="newBook.isbn"   placeholder="ISBN"   />
+        <input type="text"   [(ngModel)]="newBook.author" placeholder="Author" />
+        <input type="text"   [(ngModel)]="newBook.title"  placeholder="Title"  />
+        <input type="text"   [(ngModel)]="newBook.genre"  placeholder="Genre"  />
+        <div class="form-actions">
+          <button class="submit-btn" (click)="submitAdd()">Add</button>
+          <button class="cancel-btn" (click)="closeForm()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Delete Book Form -->
+  @if (activeForm === 'delete'){
+    <div class="form-overlay" >
+      <div class="form-card">
+        <h3>Delete Book</h3>
+        <input type="number" [(ngModel)]="deleteIsbn" placeholder="Enter ISBN" />
+        <div class="form-actions">
+          <button class="submit-btn danger" (click)="submitDelete()">Delete</button>
+          <button class="cancel-btn"        (click)="closeForm()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Display Panel -->
+  @if (displayedBooks.length > 0){
+    <div class="display-panel" >
+      <table>
+        <thead>
+        <tr>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Genre</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (book of displayedBooks; track book.isbn){
+          <tr >
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre }}</td>
+          </tr>
+           }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if(displayedBooks.length === 0 && searched){
+    <div class="empty-state">
+      <p>No books found.</p>
+    </div>
+  }
+
+</div>
