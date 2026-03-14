@@ -6,7 +6,14 @@
       <span class="navbar-icon">📖</span>
       <span class="navbar-title">Library System</span>
     </div>
+
     <div class="navbar-right">
+      <div>
+        <button class="btn-logout" (click)="logout()">
+          Logout
+        </button>
+      </div>
+
       <div class="status-chip" [class.glow]="isShowingAll" (click)="showAllBooks()">
         <span class="status-dot"></span>
         <span>{{ totalBooks }} Books</span>
@@ -127,7 +134,7 @@
   <main class="content">
 
     <!-- Book Table -->
-    @if (displayedBooks.length > 0) {
+    @if (displayedBooks().length > 0) {
       <div class="table-wrap">
         <table class="book-table">
           <thead>
@@ -139,7 +146,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (book of displayedBooks; track book.isbn) {
+            @for (book of displayedBooks(); track book.isbn) {
               <tr>
                 <td class="isbn-cell">{{ book.isbn }}</td>
                 <td class="title-cell">{{ book.title }}</td>
@@ -153,7 +160,7 @@
     }
 
     <!-- Empty / Idle State -->
-    @if (displayedBooks.length === 0 && !searched) {
+    @if (displayedBooks().length === 0 && !searched) {
       <div class="idle-state">
         <div class="idle-icon">📚</div>
         <p class="idle-title">Your Library</p>
@@ -162,7 +169,7 @@
     }
 
     <!-- No Results -->
-    @if (displayedBooks.length === 0 && searched) {
+    @if (displayedBooks().length === 0 && searched) {
       <div class="idle-state">
         <div class="idle-icon">🔎</div>
         <p class="idle-title">No books found</p>
