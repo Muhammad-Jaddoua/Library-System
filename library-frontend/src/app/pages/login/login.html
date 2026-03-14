@@ -1,0 +1,21 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">📖</div>
+    <h1 class="auth-title">Welcome Back</h1>
+    <p class="auth-subtitle">Sign in to your library account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginRequest()" class="auth-form">
+      <div class="field-group">
+        <label class="field-label">Username</label>
+        <input class="field-input" type="text" formControlName="username" placeholder="Enter your username" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Password</label>
+        <input class="field-input" type="password" formControlName="password" placeholder="Enter your password" />
+      </div>
+      <button class="btn-primary" type="submit" [disabled]="!loginForm.valid">Sign In</button>
+    </form>
+
+    <p class="auth-footer">Don't have an account? <a href="/register">Register</a></p>
+  </div>
+</div>
