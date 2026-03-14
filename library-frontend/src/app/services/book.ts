@@ -1,6 +1,7 @@
 // services/book.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 export interface Book {
   isbn: number;
@@ -29,12 +30,13 @@ export class BookService {
     });
   }
 
-  addBookAuto(){
-    this.addBook(200, "Ali", "Java", "Programming");
-    this.addBook(1010, "Borat", "USA", "Documentary");
-    this.addBook(1112, "Hitler", "Jewnation", "Cooking");
-    this.addBook(2100, "ramsey", "donuts", "slavery");
-
+  addBookAuto() {
+    return forkJoin([
+      this.addBook(200, "Ali", "Java", "Programming"),
+      this.addBook(1010, "Borat", "USA", "Documentary"),
+      this.addBook(1112, "Hitler", "Jewnation", "Cooking"),
+      this.addBook(2100, "ramsey", "donuts", "slavery"),
+    ]);
   }
 
   deleteBook(isbn: number) {
