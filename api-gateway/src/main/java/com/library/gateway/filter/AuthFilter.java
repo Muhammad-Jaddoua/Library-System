@@ -31,9 +31,13 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 return exchange.getResponse().setComplete();
             }
 
-            String token = request.getHeaders()
-                                  .getFirst("Authorization")
-                                  .substring(7); // remove "Bearer "
+            String authHeader = request.getHeaders().getFirst("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ") || authHeader.length() <= 7) {
+                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                return exchange.getResponse().setComplete();
+            }
+
+            String token = authHeader.substring(7); // remove "Bearer "
             try {
                 Jwts.parser()
                     .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret)))
