@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: apache/kafka:latest
+    image: apache/kafka:3.9.0
     container_name: kafka
     ports:
       - "9092:9092"           # expose only if you need host access (e.g. testing tools)
@@ -25,7 +25,7 @@ services:
       retries: 5
       start_period: 15s
   postgres:
-    image: postgres
+    image: postgres:17.4
     container_name: postgres-db
     environment:
       - POSTGRES_USER=postgres
