@@ -3,6 +3,7 @@ import {Login} from './pages/login/login';
 import {Register} from './pages/register/register';
 import {Books} from '././pages/books/books';
 import {NotFound} from './pages/not-found/not-found';
+import {authGuard} from './gaurds/auth-guard';
 
 export const routes: Routes = [
   { path: '',
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {path: 'books',
     title: 'Book system',
     component: Books,
+    canActivate: [authGuard]
   },{path: '**',
     title: 'Page not found',
     component: NotFound},
