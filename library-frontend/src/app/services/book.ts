@@ -24,7 +24,7 @@ export class BookService {
   }
 
   addBook(isbn: number, author: string, title: string, genre: string) {
-    return this.http.post(this.apiUrl, null, {
+    return this.http.post<boolean>(this.apiUrl, null, {
       params: { ISBN: isbn, author, title, genre }
     });
   }
@@ -38,7 +38,7 @@ export class BookService {
   }
 
   deleteBook(isbn: number) {
-    return this.http.delete(`${this.apiUrl}/${isbn}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/${isbn}`);
   }
 
   getNumOfBooksByAuthor(author: string){
