@@ -1,11 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -13,10 +13,6 @@ export class Register {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  navigateTologin(){
-    this.router.navigate(['login'])
-
-  }
   navigateToBooks(){
     this.router.navigate(['books'])
 
