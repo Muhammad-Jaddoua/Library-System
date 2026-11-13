@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/book_db     # local postgres, same instance different DB
     username: postgres
-    password: yourpassword
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update

@@ -266,3 +266,6 @@ build/
 /kafka_2.13-4.1.1/site-docs/kafka_2.13-4.1.1-site-docs.tgz
 /kafka_2.13-4.1.1/LICENSE
 /kafka_2.13-4.1.1/NOTICE
+
+### Local secrets ###
+.env

@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/auth_db    # local postgres!
     username: postgres
-    password: yourpassword
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -23,5 +23,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 jwt:
-  secret: "Ay0Th1sThe5up3rDup3r5ecr3tKeyHe11Ye4hSh1tTh15IsntL0n6En0u9h"
+  secret: ${JWT_SECRET}   # Base64-encoded, >= 32 bytes. See .env.example
   expiration: 86400000  # 24h in ms
