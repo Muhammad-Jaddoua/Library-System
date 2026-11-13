@@ -50,8 +50,10 @@ flowchart LR
 cp .env.example .env
 #    set DB_PASSWORD, and generate a signing key:  openssl rand -base64 48
 
-# 2. Build the service jars (the Dockerfiles copy the prebuilt jars)
-./mvnw clean package -DskipTests
+# 2. Build the service jars (the Dockerfiles copy the prebuilt jars).
+#    Build the four service modules explicitly: the repo root also contains the
+#    early monolith's sources, which are not part of the current build.
+./mvnw -pl eureka-server,api-gateway,auth-service,book-service clean package -DskipTests
 
 # 3. Start Kafka, Postgres, Eureka, the services and the gateway
 docker compose up --build
