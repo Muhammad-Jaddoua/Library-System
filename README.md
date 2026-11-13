@@ -37,7 +37,7 @@ flowchart LR
 ### Design decisions
 - **Database per service.** `auth_db` and `book_db` live on one Postgres instance but are never shared across services. Cross-service data moves through events, not joins.
 - **Event-driven user sync.** When a user registers, `auth-service` publishes to `auth-topic` and `book-service` consumes it, so the book service never calls the auth service synchronously.
-- **Authentication at the edge.** The gateway verifies the JWT once. Downstream services are stateless and not exposed outside the Docker network.
+- **Authentication at the edge.** The gateway verifies the JWT once. Downstream services are stateless and are not published to the host; only the gateway (8080) and Kafka (9092) are.
 - **Inheritance-mapped domain model.** `Book` is the base entity (`JOINED` inheritance) with `WrittenBook`, `EBook`, `PrintedBook` and `AudioBook` subtypes.
 - **Externalised configuration.** Secrets and credentials come from environment variables and `.env`, never from source.
 
@@ -95,12 +95,14 @@ All requests go through the gateway on port 8080.
 | `POST` | `/api/books/auto` | Seed sample books |
 | `DELETE` | `/api/books/{ISBN}` | Remove a book |
 
+Two placeholder endpoints also exist: `GET /api/books/admin` returns a stub admin page and `POST /api/books/exit` is a stub that returns a fixed message.
+
 ## Tech stack
 
 **Backend:** Java 21, Spring Boot 3.4, Spring Web, Spring Data JPA, Spring Security, Spring Cloud Gateway, Netflix Eureka, Bean Validation, Lombok
 **Messaging:** Apache Kafka (KRaft mode, no ZooKeeper), Spring Kafka with JSON serialisation
 **Data:** PostgreSQL, Hibernate/JPA, Liquibase (monolith baseline)
-**Security:** JWT (jjwt, HS256)
+**Security:** JWT (jjwt, HMAC-SHA signed)
 **Frontend:** Angular 21, TypeScript, RxJS
 **Infra:** Docker, Docker Compose with health-checked startup ordering, Maven multi-module build
 
